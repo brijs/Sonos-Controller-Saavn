@@ -2,7 +2,7 @@
 A Server application to stream Saavn music to Sonos speakers
 
 
-## Installation & setup:
+## Server Installation & setup:
 - Checkout this repo
 ```
 git clone https://github.com/brijs/Sonos-Controller-Saavn.git
@@ -32,7 +32,7 @@ git clone https://github.com/brijs/Sonos-Controller-Saavn.git
   ```
   
   
-## API methods (not all methods are documented)
+### Server API methods (not all methods are documented)
 - **saavn/songs?q=`searchTerm`**: returns a JSON list of matched songs.
 - **saavn/songs**: returns a JSON list of weekly top 15 songs
 - **sonos/player?id=`sonosId`&action=`actionId`**
@@ -42,7 +42,8 @@ git clone https://github.com/brijs/Sonos-Controller-Saavn.git
     - `play`
     - `pause`
     - `next`
-    - `add_uri`: play the media referenced by `uri` in the query params
+    - `add_uri`: add to playlist, the media specified by `uri` in the query params
+    - `play_uri`: add & play the media specified by `uri` in the query params
     - `volume`: set volume to the `val` specified in the query params
     - `seek`: seek to the `val` offset in the current track
 
