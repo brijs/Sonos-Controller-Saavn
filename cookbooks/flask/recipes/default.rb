@@ -2,31 +2,44 @@ include_recipe "flask::ssl-cert"
 
 package "git"
 
+PROJ_DIR = node[:flask_app][:path]
+
 git "Checkout Sonos-Controller-Saavn" do
     repository "https://github.com/brijs/Sonos-Controller-Saavn.git"
     reference "master"
     action :checkout
-    destination "/home/vagrant/flask-app"
+    destination PROJ_DIR
+    not_if do ::File.directory?("#{PROJ_DIR}") end
 end
 
 execute "Create Virtualenv" do
-    command "virtualenv /home/vagrant/flask-app/.venv"
+    command "virtualenv #{PROJ_DIR}/.venv"
     action :run
 end
 
 execute "Install python package dependencies" do
-    command "/home/vagrant/flask-app/.venv/bin/pip install -r /home/vagrant/flask-app/server/requirements.txt"
+    command "#{PROJ_DIR}/.venv/bin/pip install -r #{PROJ_DIR}/server/requirements.txt"
     action :run
 end
 
 execute "Fix permissions" do
-    command "chown -R vagrant:vagrant /home/vagrant/flask-app"
+    command "chown -R vagrant:vagrant #{PROJ_DIR}"
     action :run
-    only_if do File.exists?("/home/vagrant/flask-app") end
+    only_if do File.exists?("#{PROJ_DIR}") end
 end
 
+
+
+#  The 'env' resource doesn't seem to work; throws an exception
+# env "Set env variables (SSL CERT PATH) for enabling HTTPS" do
+#     key_name "SSL_CERT_PATH"
+# end
+Chef::Log.info "Setting up SSL key/cert paths environment variables."
+ENV['SSL_KEY_PATH'] = "#{node[:flask_app][:certs][:path]}/#{node[:flask_app][:certs][:key_file_name]}"
+ENV['SSL_CERT_PATH'] = "#{node[:flask_app][:certs][:path]}/#{node[:flask_app][:certs][:cert_file_name]}"
+
 service "Sonos-Controller-Saavn" do
-    start_command "/home/vagrant/flask-app/.venv/bin/python /home/vagrant/flask-app/server/run.py &"
+    start_command "#{PROJ_DIR}/.venv/bin/python #{PROJ_DIR}/server/run.py >> #{PROJ_DIR}/app.log 2>&1 &"
     action [:start]
     pattern "flask-app/server/run.py"
     supports :status => true

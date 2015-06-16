@@ -1,13 +1,12 @@
 import os
 
 # Edit user-name & password to authenticate to the server
-SERVER_USER_NAME         = os.environ.get('SERVER_USER_NAME') or 'MY_USER_NAME'
-SERVER_PASSWORD          = os.environ.get('SERVER_PASSWORD') or 'MY_PASSWORD'
+SERVER_USER_NAME         = os.environ.get('SERVER_USER_NAME') or 'admin'
+SERVER_PASSWORD          = os.environ.get('SERVER_PASSWORD') or 'admin'
 
-# Edit cert & key (https) paths
-#  - dont change; TODO: 
-SSL_KEY_PATH             = "/home/vagrant/certs/sonos.key"
-SSL_CERT_PATH            = "/home/vagrant/certs/sonos.cert"
+# cert & key (https) paths
+SSL_KEY_PATH             = os.environ.get('SSL_KEY_PATH')
+SSL_CERT_PATH            = os.environ.get('SSL_CERT_PATH')
 
 
 #saavn - :)

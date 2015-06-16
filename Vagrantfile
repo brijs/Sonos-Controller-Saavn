@@ -32,7 +32,7 @@ Vagrant.configure(2) do |config|
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
-  config.vm.network "public_network", ip: "10.0.0.14"
+  config.vm.network "public_network", ip: "10.0.0.51"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -70,11 +70,13 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
   # SHELL
-  config.vm.provision "chef_solo" do |chef|
+  config.vm.provision "chef_solo", run: "always" do |chef|
     chef.cookbooks_path = "cookbooks"
     chef.provisioning_path = "/tmp/vagrant-chef"
     # chef.roles_path = "roles"
     chef.add_recipe "init"
     chef.add_recipe "flask"
+
+    chef.node_name = "SonosSavanServer"
   end
 end
