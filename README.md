@@ -16,7 +16,7 @@ git clone https://github.com/brijs/Sonos-Controller-Saavn.git
 - To run the application server in a **Virtualbox VM**:
   - In the project directory, simply run `vagrant up --provider=virtualbox`. (You need to install virtualbox & vagrant for your host OS prior to this)
   - The server should be accessible at https://localhost:5000. You should get a welcome message.
-- To run the application in AWS
+- To run the application in **AWS**:
   - Update Vagrantfile with your AWS credentials (access key, secret key, keypair name, private key file)
   - Run `vagrant up --provider=aws`
   - Note that, only sonos related API calls will not work (only saavn calls will work) since this app server needs to be in the same home network. Alternatively, VPN may be set up to make it work from AWS.
