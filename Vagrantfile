@@ -12,8 +12,8 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "chef/ubuntu-14.04"
-  config.vm.box_url = "https://atlas.hashicorp.com/chef/boxes/ubuntu-14.04"
+  config.vm.box = "ubuntu/trusty64"
+  # config.vm.box_url = "https://atlas.hashicorp.com/ubuntu/boxes/trusty64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -52,6 +52,35 @@ Vagrant.configure(2) do |config|
     vb.memory = "1024"
     vb.name = "Sonos-Controller-Saavn"
   end
+
+
+  config.vm.provider :aws do |aws, override|
+    # credentials
+    aws.access_key_id = "<AWS ACCESS KEY>"
+    aws.secret_access_key = "<AWS ECRETY KEY>"
+    # aws.session_token = "SESSION TOKEN"
+    
+    # ami's are region specific (the following worked for me - us-west-2)
+    aws.ami = "ami-73e9d343"
+    aws.region = "us-west-2"
+
+    # Network
+    aws.security_groups = ['default']
+    # UNUSED aws.associate_public_ip = true
+    # UNUSED aws.subnet_id = "<SUBNET ID>"
+
+    # IAM profile params UNUSED 
+    # aws.use_iam_profile = true
+    # aws.iam_instance_profile_arn = ""
+    # aws.iam_instance_profile_name = ""
+
+    # SSH setup: Using ubuntu's official image; default user-name ubuntu
+    aws.keypair_name = "<AWS KEYPAIR NAME>"
+    override.ssh.username = "ubuntu"
+    override.ssh.private_key_path = "<PATH TO .PEM FILE>"
+
+  end
+
   #
   # View the documentation for the provider you are using for more
   # information on available options.
