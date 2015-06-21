@@ -4,6 +4,8 @@ package "git"
 
 PROJ_DIR     = node[:flask_app][:path]
 PROJ_SRC_DIR = node[:flask_app][:source_path]
+USER_NAME    = node[:flask_app][:user_name]
+
 
 git "Checkout Sonos-Controller-Saavn" do
     repository "https://github.com/brijs/Sonos-Controller-Saavn.git"
@@ -14,14 +16,14 @@ git "Checkout Sonos-Controller-Saavn" do
 end
 
 directory PROJ_DIR do
-    owner 'vagrant'
-    group 'vagrant'
+    owner USER_NAME
+    group USER_NAME
     mode '0755'
     action :create
     only_if do ::File.directory?("#{PROJ_SRC_DIR}/server") end
 end
 
-execute "Copy Sonos-Controller-Saavn projectd" do
+execute "Copy Sonos-Controller-Saavn project" do
     command "cp -R #{PROJ_SRC_DIR}/server #{PROJ_DIR}"
     only_if do ::File.directory?("#{PROJ_SRC_DIR}/server") end
 end
@@ -29,6 +31,7 @@ end
 execute "Create Virtualenv" do
     command "virtualenv #{PROJ_DIR}/.venv"
     action :run
+    not_if do ::File.directory?("#{PROJ_DIR}/.venv") end
 end
 
 execute "Install python package dependencies" do
@@ -37,7 +40,7 @@ execute "Install python package dependencies" do
 end
 
 execute "Fix permissions" do
-    command "chown -R vagrant:vagrant #{PROJ_DIR}"
+    command "chown -R #{USER_NAME}:#{USER_NAME} #{PROJ_DIR}"
     action :run
     only_if do File.exists?("#{PROJ_DIR}") end
 end

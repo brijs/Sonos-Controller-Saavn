@@ -1,10 +1,11 @@
 CERTS_PATH         = node[:flask_app][:certs][:path]
 SSL_KEY_FILE_NAME  = node[:flask_app][:certs][:key_file_name]
 SSL_CERT_FILE_NAME = node[:flask_app][:certs][:cert_file_name]
+USER_NAME          = node[:flask_app][:user_name]
 
 directory CERTS_PATH do
-	owner 'vagrant'
-	group 'vagrant'
+	owner USER_NAME
+	group USER_NAME
 	mode '0755'
 	action :create
 end

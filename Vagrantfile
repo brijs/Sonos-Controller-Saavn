@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu/trusty64"
+  # config.vm.box = "ubuntu/trusty64"
   # config.vm.box_url = "https://atlas.hashicorp.com/ubuntu/boxes/trusty64"
 
   # Disable automatic box update checking. If you disable this, then
@@ -44,17 +44,40 @@ Vagrant.configure(2) do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  config.vm.provider "virtualbox" do |vb|
+  config.vm.provider "virtualbox" do |vb, override|
     # Display the VirtualBox GUI when booting the machine
     # vb.gui = true
+  
+    override.vm.box = "ubuntu/trusty64"
+    override.vm.box_url = "https://atlas.hashicorp.com/ubuntu/boxes/trusty64"
   
     # Customize the amount of memory on the VM:
     vb.memory = "1024"
     vb.name = "Sonos-Controller-Saavn"
+
+    # use override, instead of config to only apply settings to this provider
+    override.vm.provision "chef_solo", run: "always" do |chef|
+      chef.cookbooks_path = "cookbooks"
+      chef.provisioning_path = "/tmp/vagrant-chef"
+      # chef.roles_path = "roles"
+      chef.add_recipe "init"
+      chef.add_recipe "flask"
+      chef.node_name = "SonosSavanServer"
+
+      # set up chef 'attributes'
+      chef.json = {
+        :flask_app => {
+          :default_user_name => "vagrant"
+        }
+      }
+    end
   end
 
 
   config.vm.provider :aws do |aws, override|
+    override.vm.box = "dummy"
+    override.vm.box_url = "https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"
+
     # credentials
     aws.access_key_id = "<AWS ACCESS KEY>"
     aws.secret_access_key = "<AWS ECRETY KEY>"
@@ -77,7 +100,23 @@ Vagrant.configure(2) do |config|
     # SSH setup: Using ubuntu's official image; default user-name ubuntu
     aws.keypair_name = "<AWS KEYPAIR NAME>"
     override.ssh.username = "ubuntu"
-    override.ssh.private_key_path = "<PATH TO .PEM FILE>"
+    override.ssh.private_key_path = "<PRIVATE KEY FILE>"
+
+    override.vm.provision "chef_solo", run: "always" do |chef|
+      chef.cookbooks_path = "cookbooks"
+      chef.provisioning_path = "/tmp/vagrant-chef"
+      # chef.roles_path = "roles"
+      chef.add_recipe "init"
+      chef.add_recipe "flask"
+      chef.node_name = "SonosSavanServer"
+
+      # set up chef 'attributes'
+      chef.json = {
+        :flask_app => {
+          :default_user_name => "ubuntu"
+        }
+      }
+    end
 
   end
 

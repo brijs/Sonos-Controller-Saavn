@@ -15,3 +15,7 @@ end
 apt_package "libffi-dev" do
     action :install
 end
+
+apt_package "libssl-dev" do
+	action :install
+end
