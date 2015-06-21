@@ -138,13 +138,5 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get update
   #   sudo apt-get install -y apache2
   # SHELL
-  config.vm.provision "chef_solo", run: "always" do |chef|
-    chef.cookbooks_path = "cookbooks"
-    chef.provisioning_path = "/tmp/vagrant-chef"
-    # chef.roles_path = "roles"
-    chef.add_recipe "init"
-    chef.add_recipe "flask"
 
-    chef.node_name = "SonosSavanServer"
-  end
 end
