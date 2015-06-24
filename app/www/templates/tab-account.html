@@ -1,0 +1,83 @@
+<ion-view view-title="Settings">
+
+
+  <ion-content>
+   
+   <div class="list">
+    <div class="item item-divider">
+    Credentials
+  </div>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Username</span>
+    <input type="text" ng-model="settings.username" placeholder="John">
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Password</span>
+    <input type="password"  ng-model="settings.password" placeholder="password">
+  </label>
+</div>
+
+    <ion-list>
+        <div class="item item-divider">
+          Access Mode
+        </div>
+
+      <ion-item class="item-toggle">
+
+        Enable remote access
+        <label class="toggle toggle-assertive">
+          <input type="checkbox" ng-model="settings.enableRemote">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </ion-item>
+
+      <ion-item>
+
+      <label class="item  item-input">
+                <i class="icon ion-home"></i>
+        <div class="col-10"></div>
+            <input type="text" placeholder=" Enter Local IP:port" ng-model="settings.localIP">
+          </label>
+        </ion-item>
+      
+      <ion-item>
+        <label class="item item-input">
+        <i class="icon ion-earth"> </i> <div class="col-10"></div>
+        <input type="text" placeholder=" Enter Remote IP:port" ng-model="settings.remoteIP">
+      </label>
+      </ion-item>
+
+        <div class="item item-divider">
+            Audio Playback
+        </div>
+      <ion-item class="item-toggle">
+        Play audio on phone
+        <label class="toggle toggle-balanced">
+          <input type="checkbox" ng-model="settings.playOnPhone">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </ion-item>
+
+      <ion-item class="item-toggle">
+        Play audio on Sonos
+        <label class="toggle toggle-balanced">
+          <input type="checkbox" ng-model="settings.playOnSonos">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </ion-item>
+
+    </ion-list>
+
+    <div class="padding">
+      <button ng-click="saveSettings()" class="button button-block button-positive">Save </button>
+    </div>
+
+   
+  </ion-content>
+</ion-view>

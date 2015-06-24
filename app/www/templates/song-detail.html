@@ -1,0 +1,76 @@
+<ion-view view-title="{{song.song}}">
+    <ion-content class="padding">
+
+        <div class="list card">
+
+            <div class="item item-avatar">
+                <img ng-src="{{song.image}}">
+                <h2>{{song.song}}</h2>
+                <p>{{song.album}}</p>
+            </div>
+
+            <div class="item item-body">
+                <img class="full-image" ng-src="{{song.image | largeimage}}">
+            </div>
+                <div class="list card">
+                   <div class="item">
+                        <h2>Singers</h2>
+
+
+                        <ion-list>
+                          <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="singer in splitByComma(song.singers)" type="item-text-wrap" ng-href="#/tab/saavn/search/Singer:{{singer}}" >
+                            <img ng-src="{{singer | guessArtistUrl}}">
+                            <h2>{{singer}}</h2>
+                          </ion-item>
+                        </ion-list>
+                        </div>
+
+                     <div class="item">
+                        <h2>Music</h2>
+                        <p>{{song.music}}</p>
+                    </div>
+
+                    <div class="item">
+                        <h2>Starring</h2>
+                                                <ion-list>
+                          <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="actor in splitByComma(song.starring)" type="item-text-wrap" ng-href="#/tab/saavn/search/Starring:{{actor}}" >
+                            <img ng-src="{{actor | guessActorUrl}}">
+                            <h2>{{actor}}</h2>
+                          </ion-item>
+                        </ion-list>
+                        
+                    </div>
+
+                     <div class="item">
+                        <h2>Label</h2>
+                        <p>{{song.label}}</p>
+                    </div>
+
+                   
+                </div>
+
+           
+
+
+            <a class="item item-icon-left assertive" ng-click="play()">
+                <i class="icon ion-music-note"></i> Start listening
+            </a>
+
+        </div>
+
+        <div class="item tabs tabs-secondary tabs-icon-left">
+
+
+            <a class="tab-item" href="#">
+                <i class="icon ion-thumbsup"></i> Like
+            </a>
+            <a class="tab-item" href="#">
+                <i class="icon ion-chatbox"></i> Comment
+            </a>
+            <a class="tab-item" href="#">
+                <i class="icon ion-share"></i> Share
+            </a>
+        </div>
+
+    </ion-content>
+</ion-view>

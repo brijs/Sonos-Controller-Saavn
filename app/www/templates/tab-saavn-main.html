@@ -1,0 +1,59 @@
+<ion-view view-title="{{ ((search.Term) ? search.Term : 'Saavn Home' ) + ' ('+settings.ipMode+')'}}">
+    <ion-content class="padding scroll-bg">
+<div class="list list-inset">
+                <form ng-submit="doRefresh(search.newTerm)">
+                <label class="item item-input">
+                    <i class="icon ion-search placeholder-icon"></i>
+                    <input ng-model-options="{debounce: 1000}" type="text" placeholder="Search (shows Top 15 songs by default)" ng-model="search.newTerm">
+                </label>
+                </form>
+            </div>
+
+            <div class="row">
+	        	<a  ng-click="prevSong()" class="col col-offset-33 col-10 button button-positive"><i class="icon ion-skip-backward"></i></a>
+			  <a ng-click="togglePlayPause()" class="col col-10 button button-balanced"><i ng-class="(sonos.status=='PLAYING')? 'icon ion-pause' : 'icon ion-play'"></i></a>
+			  <a ng-click="nextSong()" class="col  col-10 button button-positive"><i class="icon ion-skip-forward"></i></a>
+			</div>
+            <div class="button-block button button-dark button-positive">
+                <p>{{sonos.currentTrack.name}}</p>
+            </div>
+
+			<div class="row buttons">
+				<a ng-click="seek(-30)" class="button button-block button-royal col col-10"><i class="icon ion-skip-backward"></i></a>
+                <span class="button-block button button-royal button-positive col col-80">{{sonos.currentTrack.position}} / {{sonos.currentTrack.duration}}</span>
+                <a ng-click="seek(30)" class="button button-block button-royal col col-10"><i class="icon ion-skip-forward"></i></a>
+			</div>
+			<div class="range">
+			  <i class="icon ion-volume-low"></i>
+			  <input ng-change="setVolume()" ng-model-options="{debounce: 500}" ng-model="sonos.volume" type="range" name="volume">
+			  <i class="icon ion-volume-high"></i>
+			</div>
+
+<!-- 			<div class="range">
+			  <i class="icon ion-volume-low"></i>
+			  <input ng-change="" ng-model="sonos.currentTrack.position" type="range" name="position">
+			  <i class="icon ion-volume-high"></i>
+			</div> -->
+
+            <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+        </ion-refresher>
+
+
+
+        <ion-list >
+            <ion-item class="item-remove-animate  item-thumbnail-left item-icon-right" ng-repeat="song in songs" type="item-text-wrap" ng-click="saveState()" ui-sref="tab.saavn.song-detail({songId: song.id})">
+                <img ng-src="{{song.image}}">
+                <h2>{{song.song}}</h2>
+                <p>{{song.album}} - {{song.year}}</p>
+                <!-- <i class="icon ion-play"></i> -->
+                <i class="icon ion-chevron-right icon-accessory"></i>
+                <ion-option-button class="button-positive" ng-click="add(song.encrypted_media_url)">
+                    <i class="icon ion-plus-circled"></i>
+                </ion-option-button>
+                <ion-option-button class="button-balanced" ng-click="play(song.encrypted_media_url)">
+                    <i class="icon ion-play"></i>
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+      <!--   <ui-view name="temp-saavn-view"></ui-view> -->
+</ion-content></ion-view> 
