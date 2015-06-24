@@ -53,4 +53,12 @@ git clone https://github.com/brijs/Sonos-Controller-Saavn.git
 
 
 ## Client (Android apk: coming up)
-Use this app to communicate with the server, to play songs on-demand on Sonos.
+Use this app to communicate with the server, to control Sonos in your home network.
+
+####Screenshots:
+
+<img src="https://cloud.githubusercontent.com/assets/1574336/8323661/77c681de-1a15-11e5-8b49-3f0cfe823ea4.png" width="220">
+<img src="https://cloud.githubusercontent.com/assets/1574336/8323583/58ec5faa-1a14-11e5-903a-12c2a5b6a7d9.png" width="220">
+<img src="https://cloud.githubusercontent.com/assets/1574336/8323584/5ab3889a-1a14-11e5-9a44-1e28783f159f.png" width="220">
+
+
