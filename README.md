@@ -4,7 +4,7 @@ A Server application to stream Saavn music to Sonos speakers.
 
 ## Server Installation & setup:
 - Checkout this repo
-```
+```shellsession
 git clone https://github.com/brijs/Sonos-Controller-Saavn.git
 ```
 - Update the service configuration `server/config.py`
@@ -23,15 +23,15 @@ git clone https://github.com/brijs/Sonos-Controller-Saavn.git
 - To run the application server **locally**, there are a few additional steps:
   - Generate a self-signed SSL certificate in `/home/vagrant/certs/`. An example command:
   
-  ```
+  ```shellsession
   openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -keyout /home/vagrant/certs/sonos.key -out /home/vagrant/certs/sonos.cert
   ```
   - Install python dependencies for the project (Using virtualenv is recommended):
-  ```
+  ```shellsession
   pip install -r server/requirements.txt
   ```
   - Run server
-  ```
+  ```shellsession
   python server/run.py
   ```
   
@@ -53,9 +53,16 @@ git clone https://github.com/brijs/Sonos-Controller-Saavn.git
 
 
 ## Client (Android apk: coming up)
-Use this app to communicate with the server, to control Sonos in your home network.
+Use this app to communicate with the server, to control Sonos in your home network. 
 
-####Screenshots:
+#### Features
+- In the `Settings` tab, specify the IP address(Local) of the server running in your home network. Alternatively, you can operate in `remote` access mode when you are outside your home network. You ll need to configure **NAT** on your home router / gateway, and in the `Settings` tab, you will need to specify the public internet facing IP address of your home router.
+- On the `Saavn` tab, search for songs and hit enter. 
+- Drag & pull down on the screen to refresh.
+- Swipe left on a particular song and either add-song-to-queue, or add-and-play-immediately.
+- Tap on a song(row), and view details of the song.
+
+#### Screenshots:
 
 <img src="https://cloud.githubusercontent.com/assets/1574336/8323661/77c681de-1a15-11e5-8b49-3f0cfe823ea4.png" width="220">
 <img src="https://cloud.githubusercontent.com/assets/1574336/8323583/58ec5faa-1a14-11e5-903a-12c2a5b6a7d9.png" width="220">
