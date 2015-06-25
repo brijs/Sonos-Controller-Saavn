@@ -1,5 +1,5 @@
 # Sonos-Controller-Saavn
-A Server application to stream Saavn music to Sonos speakers.
+A Server application & an associated Android app to stream Saavn music to Sonos speakers on your home network.
 
 
 ## Server Installation & setup:
@@ -19,7 +19,7 @@ git clone https://github.com/brijs/Sonos-Controller-Saavn.git
 - To run the application in **AWS**:
   - Update Vagrantfile with your AWS credentials (access key, secret key, keypair name, private key file)
   - Run `vagrant up --provider=aws`
-  - Note that, only sonos related API calls will not work (only saavn calls will work) since this app server needs to be in the same home network. Alternatively, VPN may be set up to make it work from AWS.
+  - Note that, sonos related API calls will not work (only saavn calls will work) since this app server needs to be in the same home network as the sonos speakers. Alternatively, VPN may be set up to make it work from AWS.
 - To run the application server **locally**, there are a few additional steps:
   - Generate a self-signed SSL certificate in `/home/vagrant/certs/`. An example command:
   
