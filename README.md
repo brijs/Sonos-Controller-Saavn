@@ -69,3 +69,14 @@ Use this app to communicate with the server, to control Sonos in your home netwo
 <img src="https://cloud.githubusercontent.com/assets/1574336/8323584/5ab3889a-1a14-11e5-9a44-1e28783f159f.png" width="220">
 
 
+#### Tools & Technologies used:
+- server
+  - [Flask](http://flask.pocoo.org/) & [gevent](http://www.gevent.org/)
+  - Virtualenv & pip
+  - Libraries [Soco](https://github.com/SoCo/SoCo)
+  - [chef](https://www.chef.io/chef/) (chef-solo)
+  - VM providers: [Vagrant](https://www.vagrantup.com/) (virtualbox), AWS
+  - [openssl](https://www.openssl.org/)
+- client
+  - [Ionic](http://ionicframework.com/) & [Angular](https://angularjs.org/)
+  
